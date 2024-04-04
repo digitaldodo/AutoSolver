@@ -1,4 +1,5 @@
 decoy_creds.env
 real_creds.env
 *.env
+!empty_creds.env
 venv
