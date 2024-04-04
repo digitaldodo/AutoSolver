@@ -1,0 +1,4 @@
+decoy_creds.env
+real_creds.env
+*.env
+venv

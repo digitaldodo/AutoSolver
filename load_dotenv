@@ -1,0 +1,17 @@
+#!/bin/bash
+
+path=$1
+empty_creds=empty_creds.env
+
+function load_dotenv {
+  if [ -f "$1" ]; then
+    echo "Loading environment variables from $1"
+    export $(cat $1 | grep -v '#' | xargs)
+  else
+    echo "File not found: $1"
+  fi
+}
+
+load_dotenv $empty_creds
+load_dotenv $path
+
