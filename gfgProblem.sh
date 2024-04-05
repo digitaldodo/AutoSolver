@@ -7,8 +7,6 @@ url=$1
 slug=$(echo "$url" | grep -oP '(?<=problems\/).*?(?=\/)')
 lang=java
 
-echo "Fetching solution for $slug"
-
 res=$(curl "https://practiceapi.geeksforgeeks.org/api/latest/problems/$slug/metainfo/?" \
   -H 'accept: */*' \
   -H 'accept-language: en-US,en;q=0.9' \
