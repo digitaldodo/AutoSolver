@@ -1,7 +1,7 @@
 # GFG_POTD_SOLVER
 This is a simple project which aims to:
 - automatically pull potd
-- fetch correct soltion from editorial
+- fetch correct solution from editorial
 - submit the solution
 
 # Credentials
