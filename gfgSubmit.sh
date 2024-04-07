@@ -3,6 +3,8 @@
 env_path=real_creds.env
 . ./load_dotenv $env_path
 
+set -o noglob
+
 url=$1
 userCode=$2
 code=$3
