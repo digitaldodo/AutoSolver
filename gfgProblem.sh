@@ -5,6 +5,7 @@ env_path=decoy_creds.env
 
 url=$1
 slug=$(echo "$url" | grep -oP '(?<=problems\/).*?(?=\/)')
+
 lang=java
 
 res=$(curl "https://practiceapi.geeksforgeeks.org/api/latest/problems/$slug/metainfo/?" \
