@@ -10,7 +10,7 @@ userCode=$2
 code=$3
 lang=$4
 
-slug=$(echo "$url" | grep -oP '(?<=problems\/).*?(?=\/)')
+slug=$(echo "$url" | sed -n 's/.*problems\/\([^/]*\).*/\1/p')
 
 submit_url="https://practiceapiorigin.geeksforgeeks.org/api/latest/problems/$slug/submit/compile/"
 

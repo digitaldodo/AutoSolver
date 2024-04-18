@@ -4,7 +4,7 @@ decoy_env=decoy_creds.env
 . ./load_dotenv $decoy_env
 
 url=$1
-slug=$(echo "$url" | grep -oP '(?<=problems\/).*?(?=\/)')
+slug=$(echo "$url" | sed -n 's/.*problems\/\([^/]*\).*/\1/p')
 
 res=$(curl "https://practiceapi.geeksforgeeks.org/api/latest/problems/$slug/editorial/?" \
   -H 'accept: */*' \

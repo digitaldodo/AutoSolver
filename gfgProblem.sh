@@ -4,7 +4,7 @@ env_path=decoy_creds.env
 . ./load_dotenv $env_path
 
 url=$1
-slug=$(echo "$url" | grep -oP '(?<=problems\/).*?(?=\/)')
+slug=$(echo "$url" | sed -n 's/.*problems\/\([^/]*\).*/\1/p')
 
 lang=java
 
