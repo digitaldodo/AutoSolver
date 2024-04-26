@@ -6,7 +6,7 @@ env_path=decoy_creds.env
 url=$1
 slug=$(echo "$url" | sed -n 's/.*problems\/\([^/]*\).*/\1/p')
 
-lang=java
+lang=$2
 
 res=$(curl "https://practiceapi.geeksforgeeks.org/api/latest/problems/$slug/metainfo/?" \
   -H 'accept: */*' \

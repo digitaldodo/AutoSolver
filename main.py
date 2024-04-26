@@ -1,24 +1,54 @@
+import sys
 import subprocess
+from types import NoneType
 from bs4 import BeautifulSoup
 
-lang="java"
+lang_map = {
+    "java": "java",
+    "cpp": "cpp",
+    # "python": "python3",
+}
 
-stdio = subprocess.run(['./gfgPotd.sh'], stdout=subprocess.PIPE)
-url = stdio.stdout.decode()
+def get_final_solution(initial_code, solution, lang):
+    if lang == "java":
+        final_solution = "{}\n{}".format(initial_code, solution)
+    elif lang == "cpp":
+        if initial_code.find("int main") != -1:
+            final_solution = initial_code.replace("int main", "{}\nint main".format(solution))
+        else :
+            final_solution = "{}\n{}".format(initial_code, solution)
+    else :
+        final_solution = "{}\n{}".format(initial_code, solution)
+    return final_solution
 
-stdio = subprocess.run(['./gfgSolution.sh', url, lang], stdout=subprocess.PIPE)
-json_string = stdio.stdout
 
-soup = BeautifulSoup( json_string, 'html.parser')
-elem = soup.find('code', class_='language-{}'.format(lang))
-solution = repr(elem.text)[1:-1]
+def submit(lang="java"):
+    stdio = subprocess.run(['./gfgPotd.sh'], stdout=subprocess.PIPE)
+    url = stdio.stdout.decode()
 
-stdio = subprocess.run(['./gfgProblem.sh', url, lang], stdout=subprocess.PIPE)
-initial_code = repr(stdio.stdout.decode())[1:-1]
+    stdio = subprocess.run(['./gfgSolution.sh', url, lang], stdout=subprocess.PIPE)
+    json_string = stdio.stdout
 
-final_solution = "{}\n{}".format(initial_code, solution)
+    soup = BeautifulSoup( json_string, 'html.parser')
+    elem = soup.find('code', class_='language-{}'.format(lang))
+    if elem == NoneType:
+        print("Solution not found")
+        return
+    solution = repr(elem.text)[1:-1]
 
-stdio = subprocess.run(['./gfgSubmit.sh', url, repr(solution)[1:-1], repr(final_solution)[1:-1], lang], stdout=subprocess.PIPE)
-submission_status = stdio.stdout.decode()
+    stdio = subprocess.run(['./gfgProblem.sh', url, lang], stdout=subprocess.PIPE)
+    initial_code = repr(stdio.stdout.decode())[1:-1]
 
-print(submission_status)
+    final_solution = get_final_solution(initial_code, solution, lang)
+
+    stdio = subprocess.run(['./gfgSubmit.sh', url, repr(solution)[1:-1], repr(final_solution)[1:-1], lang_map[lang] ], stdout=subprocess.PIPE)
+    submission_status = stdio.stdout.decode()
+    print(submission_status)
+
+if __name__ == "__main__":
+    lang = sys.argv[1] if len(sys.argv) > 1 else "java"
+    if lang not in lang_map:
+        print("Invalid language")
+        print("Supported languages are: ", lang_map.keys())
+    else:
+        submit(lang)
