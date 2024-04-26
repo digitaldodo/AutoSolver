@@ -1,6 +1,5 @@
 import sys
 import subprocess
-from types import NoneType
 from bs4 import BeautifulSoup
 
 lang_map = {
@@ -31,9 +30,6 @@ def submit(lang="java"):
 
     soup = BeautifulSoup( json_string, 'html.parser')
     elem = soup.find('code', class_='language-{}'.format(lang))
-    if elem == NoneType:
-        print("Solution not found")
-        return
     solution = repr(elem.text)[1:-1]
 
     stdio = subprocess.run(['./gfgProblem.sh', url, lang], stdout=subprocess.PIPE)
