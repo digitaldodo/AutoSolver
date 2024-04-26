@@ -20,7 +20,12 @@ For this to work as exected, It needs two sets of credentials:
 # Pre-requisites
 1. Python3
 2. Bash -> (/bin/bash)
-3. Grep
+3. sed
+4. curl
+
+# Languages supported
+1. Java (java) (dafault)
+2. C++ (cpp)
 
 All the above commands should be accessible to the current user.
 
@@ -33,11 +38,15 @@ pip install -r requirements.txt
 ```
 4. start the script
 ```sh
-python3 main.py
+python3 main.py <language>
 ```
+
 
 # Anything else
 - Schedule a cron-job to run the script automatically daily
+```sh
+0 3 * * * <absolute path to start file>
+```
 
 # FAQ
 1. How to get cookies ?
