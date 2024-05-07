@@ -33,11 +33,11 @@ def submit(lang="java"):
     solution = repr(elem.text)[1:-1]
 
     stdio = subprocess.run(['./gfgProblem.sh', url, lang], stdout=subprocess.PIPE)
-    initial_code = repr(stdio.stdout.decode())[1:-1]
+    initial_code = stdio.stdout.decode()
 
     final_solution = get_final_solution(initial_code, solution, lang)
 
-    stdio = subprocess.run(['./gfgSubmit.sh', url, repr(solution)[1:-1], repr(final_solution)[1:-1], lang_map[lang] ], stdout=subprocess.PIPE)
+    stdio = subprocess.run(['./gfgSubmit.sh', url, solution, final_solution, lang_map[lang] ], stdout=subprocess.PIPE)
     submission_status = stdio.stdout.decode()
     print(submission_status)
 

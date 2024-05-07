@@ -27,4 +27,4 @@ res=$(curl "https://practiceapi.geeksforgeeks.org/api/latest/problems/$slug/meta
 
 json_string=$(echo "$res" | jq -r ".results.extra.initial_user_func.$lang.initial_code")
 
-echo "$json_string"
+echo -e "$json_string"
